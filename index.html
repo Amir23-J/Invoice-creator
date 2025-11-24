@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Shop Invoice Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Auto Shop Invoice Builder</h1>
+            <p>Create professional invoices quickly and easily</p>
+        </header>
+
+        <div class="invoice-form">
+            <!-- Shop Information -->
+            <section class="form-section">
+                <h2>Shop Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="shopName">Shop Name *</label>
+                        <input type="text" id="shopName" placeholder="Your Auto Shop Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shopPhone">Phone *</label>
+                        <input type="tel" id="shopPhone" placeholder="(555) 123-4567" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shopEmail">Email</label>
+                        <input type="email" id="shopEmail" placeholder="shop@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="shopAddress">Address</label>
+                        <input type="text" id="shopAddress" placeholder="123 Main St, City, ST 12345">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Invoice Details -->
+            <section class="form-section">
+                <h2>Invoice Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="invoiceNumber">Invoice # *</label>
+                        <input type="text" id="invoiceNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoiceDate">Date *</label>
+                        <input type="date" id="invoiceDate" required>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Information -->
+            <section class="form-section">
+                <h2>Customer Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name *</label>
+                        <input type="text" id="customerName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Phone *</label>
+                        <input type="tel" id="customerPhone" placeholder="(555) 987-6543" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email</label>
+                        <input type="email" id="customerEmail" placeholder="customer@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerAddress">Address</label>
+                        <input type="text" id="customerAddress" placeholder="456 Oak Ave, City, ST 12345">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vehicle Information -->
+            <section class="form-section">
+                <h2>Vehicle Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vehicleYear">Year *</label>
+                        <input type="text" id="vehicleYear" placeholder="2020" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleMake">Make *</label>
+                        <input type="text" id="vehicleMake" placeholder="Toyota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleModel">Model *</label>
+                        <input type="text" id="vehicleModel" placeholder="Camry" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleVIN">VIN</label>
+                        <input type="text" id="vehicleVIN" placeholder="1HGBH41JXMN109186">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleLicense">License Plate</label>
+                        <input type="text" id="vehicleLicense" placeholder="ABC1234">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleMileage">Mileage</label>
+                        <input type="text" id="vehicleMileage" placeholder="45,000">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services & Parts -->
+            <section class="form-section">
+                <h2>Services & Parts</h2>
+                <div class="line-items-container">
+                    <div class="line-items-header">
+                        <span>Description</span>
+                        <span>Qty</span>
+                        <span>Price</span>
+                        <span>Total</span>
+                        <span></span>
+                    </div>
+                    <div id="lineItemsContainer">
+                        <!-- Line items will be added here dynamically -->
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="addLineItemBtn">+ Add Line Item</button>
+                </div>
+            </section>
+
+            <!-- Totals -->
+            <section class="form-section">
+                <div class="totals-section">
+                    <div class="form-group totals-input">
+                        <label for="taxRate">Tax Rate (%)</label>
+                        <input type="number" id="taxRate" value="8.5" step="0.1" min="0">
+                    </div>
+
+                    <div class="totals-display">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax:</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="total-row total-final">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notes -->
+            <section class="form-section">
+                <h2>Notes / Terms</h2>
+                <div class="form-group">
+                    <textarea id="notes" rows="4" placeholder="Payment terms, warranty info, or any additional notes..."></textarea>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button type="button" class="btn btn-primary btn-large" id="completeBtn">✓ Complete Invoice</button>
+                <button type="button" class="btn btn-success btn-large" id="exportPdfBtn" disabled>📄 Export as PDF</button>
+                <button type="button" class="btn btn-secondary" id="clearBtn">Clear Form</button>
+            </div>
+        </div>
+
+        <!-- Invoice Preview (Hidden until completed) -->
+        <div id="invoicePreview" class="invoice-preview" style="display: none;">
+            <div class="preview-header">
+                <h2>Invoice Preview</h2>
+                <button type="button" class="btn btn-secondary" id="editBtn">Edit Invoice</button>
+            </div>
+            <div id="invoiceContent" class="invoice-content">
+                <!-- Invoice preview will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
