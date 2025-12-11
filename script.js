@@ -315,6 +315,24 @@ function formatDate(dateString) {
     });
 }
 
+// Generate PDF filename following industry standard format
+function generatePdfFilename(invoiceNumber, customerName) {
+    // Sanitize customer name for filename (remove special characters, limit length)
+    const sanitizedCustomer = customerName
+        .trim()
+        .replace(/[^a-zA-Z0-9\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '_') // Replace spaces with underscores
+        .substring(0, 30); // Limit length
+
+    // Sanitize invoice number
+    const sanitizedInvoice = invoiceNumber
+        .trim()
+        .replace(/[^a-zA-Z0-9-]/g, '');
+
+    // Format: InvoiceNumber_CustomerName.pdf (e.g., INV-2025-1234_JohnDoe.pdf)
+    return `${sanitizedInvoice}_${sanitizedCustomer}.pdf`;
+}
+
 // Export to PDF
 async function exportToPDF() {
     // Validate form before exporting
@@ -354,9 +372,11 @@ async function exportToPDF() {
 
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
-        // Save PDF
+        // Save PDF with descriptive filename
         const invoiceNumber = document.getElementById('invoiceNumber').value;
-        pdf.save(`Invoice_${invoiceNumber}.pdf`);
+        const customerName = document.getElementById('customerName').value;
+        const fileName = generatePdfFilename(invoiceNumber, customerName);
+        pdf.save(fileName);
 
         // Restore button
         exportBtn.textContent = originalText;
