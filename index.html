@@ -159,17 +159,16 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <button type="button" class="btn btn-primary btn-large" id="completeBtn">✓ Complete Invoice</button>
-                <button type="button" class="btn btn-success btn-large" id="exportPdfBtn" disabled>📄 Export as PDF</button>
+                <button type="button" class="btn btn-success btn-large" id="exportPdfBtn">📄 Export as PDF</button>
                 <button type="button" class="btn btn-secondary" id="clearBtn">Clear Form</button>
             </div>
         </div>
 
-        <!-- Invoice Preview (Hidden until completed) -->
-        <div id="invoicePreview" class="invoice-preview" style="display: none;">
+        <!-- Invoice Preview (Always visible, updates live) -->
+        <div id="invoicePreview" class="invoice-preview">
             <div class="preview-header">
-                <h2>Invoice Preview</h2>
-                <button type="button" class="btn btn-secondary" id="editBtn">Edit Invoice</button>
+                <h2>Live Preview</h2>
+                <p class="preview-subtitle">Preview updates automatically as you type</p>
             </div>
             <div id="invoiceContent" class="invoice-content">
                 <!-- Invoice preview will be rendered here -->

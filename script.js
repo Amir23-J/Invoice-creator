@@ -17,11 +17,18 @@ function initializeApp() {
 
     // Event listeners
     document.getElementById('addLineItemBtn').addEventListener('click', addLineItem);
-    document.getElementById('completeBtn').addEventListener('click', completeInvoice);
     document.getElementById('exportPdfBtn').addEventListener('click', exportToPDF);
     document.getElementById('clearBtn').addEventListener('click', clearForm);
-    document.getElementById('editBtn').addEventListener('click', editInvoice);
-    document.getElementById('taxRate').addEventListener('input', calculateTotals);
+    document.getElementById('taxRate').addEventListener('input', function() {
+        calculateTotals();
+        updatePreview();
+    });
+
+    // Add live preview updates for all form inputs
+    addLivePreviewListeners();
+
+    // Initial preview update
+    updatePreview();
 }
 
 // Generate a random invoice number
@@ -51,14 +58,18 @@ function addLineItem() {
 
     container.appendChild(lineItem);
 
-    // Add event listeners for calculation
+    // Add event listeners for calculation and live preview
     const inputs = lineItem.querySelectorAll('input');
     inputs.forEach(input => {
         input.addEventListener('input', function() {
             updateLineItemTotal(lineItemCounter);
             calculateTotals();
+            updatePreview();
         });
     });
+
+    // Update preview after adding line item
+    updatePreview();
 }
 
 // Remove a line item
@@ -67,6 +78,7 @@ function removeLineItem(id) {
     if (lineItem) {
         lineItem.remove();
         calculateTotals();
+        updatePreview();
     }
 }
 
@@ -107,7 +119,23 @@ function formatCurrency(amount) {
     return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
-// Validate form
+// Add live preview listeners to all form inputs
+function addLivePreviewListeners() {
+    // Get all input fields and textareas
+    const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', updatePreview);
+    });
+}
+
+// Update the live preview
+function updatePreview() {
+    const invoiceContent = generateInvoiceHTML();
+    document.getElementById('invoiceContent').innerHTML = invoiceContent;
+}
+
+// Validate form (for PDF export)
 function validateForm() {
     const requiredFields = [
         'shopName',
@@ -148,27 +176,6 @@ function validateForm() {
     }
 
     return true;
-}
-
-// Complete invoice and show preview
-function completeInvoice() {
-    if (!validateForm()) {
-        return;
-    }
-
-    // Generate invoice preview
-    const invoiceContent = generateInvoiceHTML();
-    document.getElementById('invoiceContent').innerHTML = invoiceContent;
-
-    // Show preview and hide form
-    document.querySelector('.invoice-form').style.display = 'none';
-    document.getElementById('invoicePreview').style.display = 'block';
-
-    // Enable PDF export button
-    document.getElementById('exportPdfBtn').disabled = false;
-
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Generate invoice HTML for preview
@@ -310,6 +317,11 @@ function formatDate(dateString) {
 
 // Export to PDF
 async function exportToPDF() {
+    // Validate form before exporting
+    if (!validateForm()) {
+        return;
+    }
+
     const { jsPDF } = window.jspdf;
     const invoiceContent = document.getElementById('invoiceContent');
 
@@ -361,14 +373,6 @@ async function exportToPDF() {
     }
 }
 
-// Edit invoice (go back to form)
-function editInvoice() {
-    document.querySelector('.invoice-form').style.display = 'block';
-    document.getElementById('invoicePreview').style.display = 'none';
-    document.getElementById('exportPdfBtn').disabled = true;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
 // Clear form
 function clearForm() {
     if (!confirm('Are you sure you want to clear all fields? This cannot be undone.')) {
@@ -388,11 +392,13 @@ function clearForm() {
     addLineItem();
     addLineItem();
 
-    // Reset totals
+    // Reset totals and update preview
     calculateTotals();
+    updatePreview();
 
-    // Generate new invoice number
+    // Generate new invoice number and update date
     document.getElementById('invoiceNumber').value = generateInvoiceNumber();
+    document.getElementById('invoiceDate').valueAsDate = new Date();
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
