@@ -1,0 +1,60 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    EXCEL INVOICE CREATOR - QUICK START                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+🚀 SETUP (One-time only):
+   1. Open Excel, press ALT+F11
+   2. Insert → Module
+   3. Copy all code from InvoiceCreator.vba and paste
+   4. Close VBA Editor
+   5. Press ALT+F8, select "SetupInvoiceWorkbook", click Run
+   6. Done!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 USAGE:
+   1. Fill out the Data Entry sheet (yellow cells)
+   2. Click "Preview Invoice" to see formatted version
+   3. Click "Export PDF" to save
+   4. Click "Clear Form" for next invoice
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔘 BUTTONS:
+   • Add Line Item       - Add new service/part row
+   • Remove Last Line    - Delete last row
+   • Preview Invoice     - View formatted invoice
+   • Export PDF          - Save as PDF with auto-filename
+   • Clear Form          - Start new invoice
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📄 PDF FILENAME FORMAT:
+   InvoiceNumber_CustomerName.pdf
+   Example: INV-2025-1234_John_Doe.pdf
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 TIPS:
+   • Required fields marked with *
+   • Totals calculate automatically
+   • Invoice sheet updates in real-time
+   • Save workbook as .xlsm to keep macros
+   • Tax rate stays when you clear form
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❗ ENABLE MACROS:
+   If buttons don't work:
+   File → Options → Trust Center → Trust Center Settings → Macro Settings
+   → Enable all macros → OK → Restart Excel
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 TWO SHEETS:
+   • Data Entry  - Where you input information
+   • Invoice     - Professional formatted output (auto-updates)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+See EXCEL_SETUP_INSTRUCTIONS.md for full documentation.
